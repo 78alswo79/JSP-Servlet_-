@@ -25,41 +25,34 @@ public class PopupServlet extends HttpServlet{
 	private void process(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 		res.setContentType("text/html; charset=utf-8");
-		//System.out.println("doPost!! 호출");
 		req.getParameter("popupCheck");
-		//System.out.println(req.getParameter("popupCheck"));
-		
+
+		// checkbox 체크 값.
 		String checkVal = req.getParameter("popupCheck");
 		
 		PrintWriter out = res.getWriter();
 		
+		// 체크박스 체크를 했으면,
+		// 쿠키 만들어주기.
 		if ("1".equals(checkVal)) {	
-			//System.out.println("****************************************");
 			res.addCookie(
 					cookie2.createCookie("popupBool", "close")
 			);
 			
 //			res.addCookie(
-//					cookie2.createCookie("test2", "close")
-//			);
-//			
-//			res.addCookie(
-//					cookie2.createCookie("test3", "close")
+//					cookie2.createCookie("popupBool", "close", 0)
 //			);
 		} 
 		
-		
-		
-		
+		// 쿠키 요청
 		cookie2 = new Cookie2(req);
 		
 //		System.out.println(cookie2.getCookie("test1"));
 //		System.out.println(cookie2.getValue("test1"));
 		
-		System.out.println(cookie2.exits("popupBool"));
-		
-		// 쿠키 존재여부 메소드 만들고 다음에 만들기
-		if (cookie2.exits("popupBool")) {
+		// 요청에 쿠키가 존재한다면
+		if (cookie2.exits("popupBool")) 
+		{
 			out.println("<div>");
 			out.println("<h2 align=\"center\">쿠키 값 생성되고 난 후 화면</h2>");
 			out.println("<div>");
@@ -67,7 +60,10 @@ public class PopupServlet extends HttpServlet{
 			out.println("</h3>");
 			out.println("</div>");
 			out.println("</div>");
-		} else {
+		} 
+		// 쿠키가 존재하지 않는다면
+		else 
+		{
 			out.println("<div>");
 			out.println("<h2 align=\"center\">쿠키 만들어지기 전 화면</h2>");
 			out.println("<div>");
@@ -80,6 +76,4 @@ public class PopupServlet extends HttpServlet{
 			out.println("</div>");
 		}
 	}
-
-	
 }
